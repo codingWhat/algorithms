@@ -13,7 +13,33 @@
 //最坏时间复杂度:O(n^2)
 //平均时间复杂度:O(n^2)
 //稳定排序算法,
-
-function bubbleSort() {
-
+$arr = [1, 2, 3, 4, 5];
+var_dump(bubbleSort($arr));
+$arr = [5, 4, 3, 2, 1];
+var_dump(bubbleSort($arr));
+$arr = [1, 4, 6, 5, 1];
+var_dump(bubbleSort($arr));
+function bubbleSort($arr) {
+    if (!is_array($arr)) {
+        return false;
+    }
+    $len = count($arr);
+    if (empty($arr) || $len <= 1) {
+        return [];
+    }
+    $flag = false;
+    for ($i = 0; $i < $len; $i++) {
+        for ($j = 0; $j < $len -$i- 1; $j++) {
+            if ($arr[$j] > $arr[$j+1]) {
+                $tmp = $arr[$j];
+                $arr[$j] = $arr[$j+1];
+                $arr[$j + 1] = $tmp;
+                $flag = true;
+            }
+        }
+        if ($flag == false) {
+            break;
+        }
+    }
+    return $arr;
 }
