@@ -8,7 +8,7 @@
  * 对于一个完全有序的数组，比如[1,2,3,4,5,6]，有序度为n*(n-1)/2，也就是15
  * ，完全有序的情况称为满有序度
  */
-//冒泡排序
+//冒泡排序(原地/稳定排序算法)
 //最好时间复杂度:O(n)
 //最坏时间复杂度:O(n^2)
 //平均时间复杂度:O(n^2)
@@ -24,8 +24,8 @@ function bubbleSort($arr) {
         return false;
     }
     $len = count($arr);
-    if (empty($arr) || $len <= 1) {
-        return [];
+    if ($len <= 1) {
+        return $arr;
     }
     $flag = false;
     for ($i = 0; $i < $len; $i++) {
