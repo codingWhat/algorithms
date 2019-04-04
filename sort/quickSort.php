@@ -1,9 +1,12 @@
 <?php
-
 /*****************说明**********************/
-
-
-
+//快排
+// 快排递推公式 => T(quickSort(n...r)) = T(quick(n...q)) + T(quick(q....r))
+//最好时间复杂度: O(lgN)
+//最坏时间复杂度: O
+//平均时间复杂度:
+//空间复杂度:O(1)
+//稳定排序算法，
 
 main();
 function main() {
@@ -54,4 +57,36 @@ function partition(&$arr, $start, $end) {
         }
     }
 
+}
+=======
+
+function quickSort(&$arr,$low, $high){
+    if ($low >= $high) {
+        break;
+    }
+    $pivot = getPivot($arr, $low, $high);
+    quickSort($arr, $low, $pivot-1);
+    quickSort($arr, $pivot + 1, $high);
+}
+
+function getPivot(&$arr, $start, $end) {
+
+    $left = 0;
+    $right = $end - 1;
+    $pivot = $arr[$right];
+    while (true) {
+        while ($arr[$left++] >= $pivot) break;
+        if ($left == $end) {
+            return $left;
+        }
+        while ($arr[$right--] < $pivot) break;
+
+        if ($left < $right) {
+             $tmp = $arr[$right];
+             $arr[$right] = $arr[$left];
+             $arr[$left] = $tmp;
+        }else {
+
+        }
+    }
 }
