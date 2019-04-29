@@ -18,11 +18,9 @@ function mergeTwoArr($a, $b) {
     $res = [];
     while ($i < $lenA && $j < $lenB) {
         if ($a[$i] > $b[$j]) {
-            $res[]= $b[$j];
-            $j++;
+            $res[]= $b[$j++];
         }else {
-            $res[] = $a[$i];
-            $i++;
+            $res[] = $a[$i++];
         }
     }
     while ($j < $lenB) {
