@@ -186,7 +186,7 @@ $heap->getItems();*/
 
 $arr = [9, 4, 2, 1, 6, 3, 21312,22323, 32132];
 $heap = new Heap();
-$heap->topK($arr, 3);
+$heap->topK($arr, 1);
 $heap->getItems();
 
 function bigHeap($arr, &$tmp) {
