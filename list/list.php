@@ -1,2 +1,72 @@
 <?php
 //实现单链表，循环链表，双向链表，支持增删操作
+
+class AItem {
+    public  $value;
+    public  $isDeleted;
+}
+
+class AList {
+
+    private  $items = [];
+
+    private $size = 0;
+
+    private $count = 0;
+
+    private $head = 0;
+
+    private $tail = 0;
+
+    public function __construct($size)
+    {
+        $this->size = $size;
+    }
+
+    public function enqueue($item)
+    {
+        if ($this->tail == $this->size) {return false;}
+
+        $this->items[$this->tail] = $item;
+        $this->tail++;
+        $this->count++;
+        return $this->tail - 1;
+    }
+
+    public function dequeue()
+    {
+        if ($this->head >= $this->size)  {
+            return false;
+        }
+
+        $item = $this->items[$this->head];
+
+        $this->head++;
+        $this->count--;
+        return $item;
+    }
+
+
+    public function getItems()
+    {
+        var_dump($this->head);
+        var_dump($this->tail);
+        var_dump($this->count);
+        return $this->items;
+    }
+}
+
+$list = new AList(3);
+
+$list->enqueue(1);
+$list->enqueue(2);
+$list->enqueue(3);
+//var_dump($list->getItems());
+
+$list->dequeue();
+$list->dequeue();
+$list->dequeue();
+$list->dequeue();
+var_dump($list->getItems());
+exit;
+
