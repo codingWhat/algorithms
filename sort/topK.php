@@ -34,16 +34,14 @@ class Heap {
             $this->tmpHeapify();
 
             if ($item > $this->items[0]) {
-                $this->items[$this->count++] = $item;
-                $this->items[0] = $this->items[$this->count - 1];
-                unset($this->items[$this->count - 1]);
+                $this->items[0] = $item;
             }
         }
     }
 
     function tmpHeapify() {
 
-        $father = (int)$this->count / 2;
+        $father = (int)(($this->count - 1) / 2);
         for (; $father >=0; $father-- ) {
             $this->topKHeapify($father);
         }
@@ -51,7 +49,6 @@ class Heap {
     }
 
     function topKHeapify($index) {
-
         while (true) {
             $leftNodeIndex = 2 * $index + 1;
             $rightNodeIndex = 2 * $index + 2;
@@ -60,7 +57,7 @@ class Heap {
                 $minNode = $leftNodeIndex;
             }
 
-            if (isset($this->items[$rightNodeIndex]) && $minNode && $this->items[$rightNodeIndex] < $minNode) {
+            if (isset($this->items[$rightNodeIndex]) && $minNode && $this->items[$rightNodeIndex] < $this->items[$minNode]) {
                 $minNode = $rightNodeIndex;
             }
 
@@ -69,7 +66,6 @@ class Heap {
             $tmp = $this->items[$minNode];
             $this->items[$minNode] = $this->items[$index];
             $this->items[$index] = $tmp;
-
             $index = $minNode;
         }
     }
