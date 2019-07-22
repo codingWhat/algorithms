@@ -16,7 +16,7 @@ function fibonacciSum($num) {
 }
 
 
-//递归
+//递归实现
 //echo fibonacci(1000);
 function fibonacci( $num) {
     if ($num < 1) return 0;
