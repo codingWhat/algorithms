@@ -105,11 +105,6 @@ class HeapFactory {
 
 }
 
-/*$factory = new HeapFactory();
-$arr = [6, 3, 7, 1, 9];
-var_dump($factory->staticBuildBigHeap($arr));
-var_dump($factory->staticBuildSmallHeap($arr));
-exit;*/
 
 
 
