@@ -49,18 +49,6 @@ class ArrayQueue {
 }
 
 
-/*$queue = new ArrayQueue(4);
-
-$queue->enQueue(1);
-$queue->enQueue(2);
-$queue->enQueue(3);
-var_dump($queue->enQueue(4));
-var_dump($queue->deQueue());
-var_dump($queue->deQueue());
-var_dump($queue->deQueue());
-var_dump($queue->deQueue());
-var_dump($queue->deQueue());*/
-
 
 
 //该方案弥补了每次出队需要数据搬移，提高性能， 缺点；代码复杂了
@@ -141,20 +129,3 @@ class ArrayQueueAdvanced {
     }
 }
 
-$aQueueA = new ArrayQueueAdvanced(3);
-
-$aQueueA->enqueue(1);
-$aQueueA->enqueue(2);
-$aQueueA->enqueue(3);
-
-echo $aQueueA->dequeue();
-echo $aQueueA->dequeue();
-
-$aQueueA->enqueue(5);
-//$aQueueA->enqueue(5);
-//$aQueueA->enqueue(6);
-
-
-
-$aQueueA->printItems();
-$aQueueA->isFull();
