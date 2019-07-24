@@ -31,3 +31,21 @@ function bagPack($index, $curWeight, $items, $bagWeight, $num, &$maxWeight) {
     }
 
 }
+
+//执行流程；
+/*
+ 4
+0/ \1
+ 3
+0/ \1
+ 6
+0/ \1
+7
+0/ \1
+
+第一步就是递归到最后一个元素，利用递归特性，巧妙backTrace
+7  //curWeight = 0, maxWeight = 7
+6,7 // 超过bagWeight
+3,6,7  // 3+6 = 9 ,而 15超过 bagWeight
+4,3,6,7
+  */
