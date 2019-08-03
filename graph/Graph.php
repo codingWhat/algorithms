@@ -67,7 +67,7 @@ class Graph extends Base
         $this->items = [];
     }
 
-    public function add($start, $terminal)
+    public function addEdge($start, $terminal)
     {
         if (isset($this->items[$start])) {
             $this->items[$start]->add($terminal);

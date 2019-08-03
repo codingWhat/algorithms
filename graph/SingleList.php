@@ -43,6 +43,22 @@ class SingleList {
         $this->size++;
     }
 
+    public function get($index)
+    {
+        $cur = $this->head;
+
+        $count = 0;
+        while ($cur) {
+            if ($count == $index) {
+                return $cur->value;
+            }
+            $cur = $cur->next;
+            $count++;
+        }
+
+        return -1;
+    }
+
     public function size()
     {
         return $this->size;
