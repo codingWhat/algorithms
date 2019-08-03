@@ -1,5 +1,9 @@
 <?php
-/***********************概念介绍***********************************/
+/***********************概念介绍**********************************
+ * @param $arr
+ * @param $low
+ * @param $high
+ */
 
 //归并排序(分治/分区)
 //递推公式: T(a) = T(b) + T(c) + K
@@ -12,15 +16,7 @@
 //稳定排序算法
 //空间复杂度:O(N), 非原地排序算法
 
-$arr = [5,4,3,2,1];
-mergeSort($arr, 0, 4);
-var_dump($arr);
-$arr1 = [1,2,3,4,5];
-mergeSort($arr1, 0, 4);
-var_dump($arr1);
-$arr2 = [2,4,6,1,9];
-mergeSort($arr2, 0, 4);
-var_dump($arr2);
+
 
 function mergeSort(&$arr, $low, $high) {
     if ($low >= $high) return;

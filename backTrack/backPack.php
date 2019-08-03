@@ -47,5 +47,5 @@ function bagPack($index, $curWeight, $items, $bagWeight, $num, &$maxWeight) {
 7  //curWeight = 0, maxWeight = 7
 6,7 // 超过bagWeight
 3,6,7  // 3+6 = 9 ,而 15超过 bagWeight
-4,3,6,7
+4,3,6,7  //
   */

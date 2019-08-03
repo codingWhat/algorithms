@@ -7,18 +7,16 @@
  * 对于一个倒序数组，比如[6,5,4,3,2,1]，有序度是0；
  * 对于一个完全有序的数组，比如[1,2,3,4,5,6]，有序度为n*(n-1)/2，也就是15
  * ，完全有序的情况称为满有序度
+ *
+ * 冒泡排序(原地/稳定排序算法)
+ * 最好时间复杂度:O(n)
+ * 最坏时间复杂度:O(n^2)
+ * 平均时间复杂度:O(n^2)
+ * 稳定排序算法,
+ * @param $arr
+ * @return array|bool
  */
-//冒泡排序(原地/稳定排序算法)
-//最好时间复杂度:O(n)
-//最坏时间复杂度:O(n^2)
-//平均时间复杂度:O(n^2)
-//稳定排序算法,
-$arr = [1, 2, 3, 4, 5];
-var_dump(bubbleSort($arr));
-$arr = [5, 4, 3, 2, 1];
-var_dump(bubbleSort($arr));
-$arr = [1, 4, 6, 5, 1];
-var_dump(bubbleSort($arr));
+
 function bubbleSort($arr) {
     if (!is_array($arr)) {
         return false;

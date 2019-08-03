@@ -3,7 +3,7 @@
 require __DIR__ . '/../heap/heap.php';
 
 
-class  HeapSort
+class HeapSort
 {
 
     /**
@@ -38,9 +38,5 @@ class  HeapSort
     }
 }
 
-$arr = [7, 3, 1, 4, 5];
-$heapSortApi = new HeapSort($arr);
-
-var_dump($heapSortApi->doIt());
 
 

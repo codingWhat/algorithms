@@ -6,7 +6,7 @@ class AItem {
     public  $isDeleted;
 }
 
-class AList {
+class Queue {
 
     private  $items = [];
 
@@ -56,7 +56,7 @@ class AList {
     }
 }
 
-$list = new AList(3);
+$list = new Queue(3);
 
 $list->enqueue(1);
 $list->enqueue(2);

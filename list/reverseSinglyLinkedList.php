@@ -1,50 +1,13 @@
 <?php
 //反转单链表
 
-
-class Node {
-
-    public $value;
-    public $next;
-
-    public function __construct($value)
-    {
-        $this->value = $value;
-    }
-}
-
-class SingleList {
-
-    public $head;
-
-
-    public function addNode($node)
-    {
-        $curr = $this->head;
-        $newNode = new Node($node);
-        if (is_null($curr)) {
-            $this->head = $newNode;
-            return true;
-        }
-
-        $prev = null;
-        while ($curr) {
-            $prev = $curr;
-            $curr = $curr->next;
-        }
-
-        if ($curr == null && $prev) {
-            $prev->next = $newNode;
-        }
-        return true;
-    }
-}
+require  __DIR__ . '/singleList.php';
 
 $singleList = new SingleList();
-$singleList->addNode(1);
-$singleList->addNode(2);
-$singleList->addNode(3);
-$singleList->addNode(4);
+$singleList->add(1);
+$singleList->add(2);
+$singleList->add(3);
+$singleList->add(4);
 
 
 $tmpList = $singleList;
