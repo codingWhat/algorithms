@@ -21,7 +21,7 @@ function arr1($arr, $k) {
 }
 
 
-require  __DIR__ . '/../heap/heap.php';
+require __DIR__ . '/../heap/Heap.php';
 //基于最大堆
 $arr = [4,3, 2, 5, 6, 7, 9];
 

@@ -77,4 +77,18 @@ class Graph extends Base
             $this->items[$start] = $list;
         }
     }
+
+
+    public function addEdge1($start, $terminal, $weight)
+    {
+        $edge = new Edge($start, $terminal, $weight);
+
+        if (isset($this->items[$start])) {
+            $this->items[$start]->add($terminal);
+        } else {
+            $list = new SingleList();
+            $list->add($edge);
+            $this->items[$start] = $list;
+        }
+    }
 }

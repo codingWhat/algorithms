@@ -1,9 +1,12 @@
 <?php
+namespace heap;
 
-require __DIR__ . '/heap.php';
-
-$factory = new HeapFactory();
+require  dirname(__DIR__) . '/autoload.php';
+//create 'normal' heap instance
+/** @var Heap $heap */
+$heap = HeapFactory::make();
 $arr = [6, 3, 7, 1, 9];
-var_dump($factory->staticBuildBigHeap($arr));
-var_dump($factory->staticBuildSmallHeap($arr));
-exit;
+$heap->staticBuildBigHeap($arr);
+var_dump($arr);
+$heap->staticBuildSmallHeap($arr);
+var_dump($arr);

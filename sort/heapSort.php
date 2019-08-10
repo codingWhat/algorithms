@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . '/../heap/heap.php';
+require __DIR__ . '/../heap/Heap.php';
 
 
 class HeapSort

@@ -1,7 +1,8 @@
 <?php
 
 //简单单链表实现，没有大小限制，采用"哨兵"模式，提供快速获取链表size, head, tail
-class SingleListNode {
+class SingleListNode
+{
     public $value;
     public $next;
 

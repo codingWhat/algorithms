@@ -1,10 +1,7 @@
 <?php
 
 
-require __DIR__ . '/../heap/Heap.php';
-
-
-class PriorityQueue {
+class PriorityQueueVertex {
 
     private $size;
 
@@ -47,8 +44,6 @@ class PriorityQueue {
     {
         if (count($this->items) > $this->size) return false;
 
-       return $this->heapFactory->dynamicBuildSmallHeap($this->items, $item);
+        return $this->heapFactory->dynamicBuildSmallHeapWithVertex($this->items, $item);
     }
 }
-
-
