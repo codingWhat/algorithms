@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . '/../list/queue.php';
+require __DIR__ . '/../listx/queue.php';
 //广度优先搜索-BFS
 
 /**

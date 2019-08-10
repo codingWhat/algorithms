@@ -1,5 +1,5 @@
 <?php
-
+namespace listx;
 //双向链表实现
 class LinkedNode {
     public $value;

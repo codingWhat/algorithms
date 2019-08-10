@@ -1,6 +1,11 @@
 <?php
 
-require __DIR__ . '/../heap/Heap.php';
+namespace sort;
+
+use Heap\HeapFactory;
+
+require dirname(__DIR__) . '/autoload.php';
+
 
 
 class HeapSort
@@ -11,14 +16,14 @@ class HeapSort
      */
     private $items;
     /**
-     * @var HeapFactory
+     * @var \heap\Heap $heapFactory
      */
     private $heapFactory;
 
     public function __construct(array $items)
     {
         $this->items = $items;
-        $this->heapFactory = new HeapFactory();
+        $this->heapFactory = HeapFactory::make();
         $this->heapFactory->staticBuildSmallHeap($this->items);
     }
 

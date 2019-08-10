@@ -1,11 +1,6 @@
 <?php
 //实现单链表，循环链表，双向链表，支持增删操作
 
-class AItem {
-    public  $value;
-    public  $isDeleted;
-}
-
 class Queue {
 
     private  $items = [];
