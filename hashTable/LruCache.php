@@ -62,16 +62,21 @@ class LruCache {
 
             /** @var LruSingleList $singleList */
             $singleList = $this->items[$hashIndex];
-           list($curNode, $isExists) = $singleList->find($key);
+            list($curNode, $prev,  $isExists) = $singleList->find($key);
             if ($isExists) {
-               return  $this->linkedList->moveToTail($curNode);
+                return  $this->linkedList->moveToTail($curNode);
             }
 
         }
 
         while ($this->linkedList->getSize() >= $this->getCapacity()) {
             $this->count--;
-            $this->linkedList->removeOldest();
+            $lastNode = $this->linkedList->getHead()->getNext();
+
+            $singleList = $this->items[$this->makeHash($lastNode->getKey())];
+            $singleList->remove($lastNode);
+            echo "size:" . $this->linkedList->getSize() . PHP_EOL;
+            //  exit;
         }
 
         $this->linkedList->add($newNode);
@@ -96,7 +101,7 @@ class LruCache {
             $singleList = $this->items[$hashIndex];
             list($curNode, $prevNode, $isExists) = $singleList->find($key);
             if ($isExists) {
-                         $singleList->removeAfter($prevNode);
+                $singleList->removeAfter($prevNode);
                 return  $this->linkedList->remove($curNode);
             }
         }
@@ -124,12 +129,11 @@ class LruCache {
      */
     private function makeHash($key)
     {
-        return crc32($key) % ($this->getCapacity() - 1);
+        return abs(crc32($key) % ($this->getCapacity() - 1));
     }
 
     public function printItems()
     {
-        //var_dump($this->items);
         for ($i = 0; $i < 4; $i++) {
             if (isset($this->items[$i])) {
                 /** @var LruSingleList $list */
@@ -138,5 +142,7 @@ class LruCache {
                 $list->printHnext();
             }
         }
+
+
     }
 }

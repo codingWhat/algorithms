@@ -27,16 +27,16 @@ class LruLinkedList {
     public function add(LruLinkedNode $node)
     {
         if (!$this->head->getNext() && !$this->tail->getPrev()) {
-               $this->head->setNext($node);
+            $this->head->setNext($node);
+            $node->setPrev($this->head);
         } else {
             $this->tail->getPrev()->setNext($node);
             $node->setPrev($this->tail->getPrev());
         }
 
+        $node->setNext($this->tail);
         $this->tail->setPrev($node);
-
         $this->size++;
-
         return true;
     }
 
@@ -50,6 +50,7 @@ class LruLinkedList {
 
     public function moveToTail(LruLinkedNode $node)
     {
+
         $this->remove($node);
 
         $this->tail->getPrev()->setNext($node);
@@ -84,6 +85,22 @@ class LruLinkedList {
 
         $this->size--;
         return true;
+    }
+
+    /**
+     * @return LruLinkedNode
+     */
+    public function getHead(): LruLinkedNode
+    {
+        return $this->head;
+    }
+
+    /**
+     * @return LruLinkedNode
+     */
+    public function getTail(): LruLinkedNode
+    {
+        return $this->tail;
     }
 
 
