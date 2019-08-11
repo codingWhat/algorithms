@@ -1,9 +1,100 @@
 <?php
-//实现一个基于链表法解决冲突问题的散列表
+namespace hashTable;
 
-//实现思路: 基于crc32对key进行hash运算, 并取余
-//hash冲突:
-//1.链表法(取出当前节点next ,将新节点next->head指针next, head指针指向新节点)
-//2.开放寻址法, 若数组节点上存在数据，则往下继续探测到空闲节点为止(跳过删除节点)
-//注意:删除节点时，是将节点标记为删除状态
 
+//基于链表法的解决哈希冲突
+//缺点:
+//1.数组的大小会影响冲突概率,
+//2.冲突大了以后，单链表查询速度会影响查询效率
+class HashTable {
+
+    private $size;
+    /**
+     * @var array
+     */
+    private $items;
+    private $count;
+
+
+    public function __construct($size)
+    {
+        $this->size = $size;
+        $this->items = [];
+        $this->count = 0;
+    }
+
+    public function set($key, $value)
+    {
+        $index = $this->makeHash($key);
+
+        if ($this->count > $this->size) {
+            return false;
+        }
+
+        if (isset($this->items[$index])) {
+               $this->items[$index]->add($key, $value);
+        } else {
+            $list = new SingleList();
+            $list->add($key, $value);
+            $this->items[$index] = $list;
+        }
+
+        $this->count++;
+        return true;
+    }
+
+    public function del($key)
+    {
+        $index = $this->makeHash($key);
+
+        if (!isset($this->items[$index]))  return false;
+
+        /** @var SingleList $list */
+        $list = $this->items[$index];
+
+        $list->del($key);
+
+        return true;
+    }
+
+    public function isExists(LinkedList $linkedList, $key)
+    {
+        return (bool)$this->find($linkedList, $key);
+    }
+
+    public function find(LinkedList $linkedList, $key)
+    {
+        /** @var LinkedNode $cur */
+        $cur = $linkedList->getHead();
+        $prev = null;
+        while ($cur->getNext()) {
+            if ($cur->getKey() == $key) {
+                return $prev;
+            }
+            $prev = $cur;
+            $cur = $cur->getNext();
+        }
+
+        return false;
+    }
+
+    public function makeHash($key)
+    {
+        return crc32($key) % $this->size;
+    }
+}
+
+class HashTable1 {
+
+    private $size;
+    /**
+     * @var array
+     */
+    private $items;
+
+    public function __construct($size)
+    {
+        $this->size = $size;
+        $this->items = [];
+    }
+}

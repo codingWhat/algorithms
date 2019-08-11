@@ -11,10 +11,6 @@ namespace hashTable;
 //也可以基于 hashMap + 小顶堆(有过期时间)
 
 
-
-require dirname(__DIR__) . '/autoload.php';
-
-
 class LruCache {
 
     private $capacity;
@@ -22,6 +18,14 @@ class LruCache {
      * @var array
      */
     private $items;
+    /**
+     * @var LruLinkedList
+     */
+    private $linkedList;
+    /**
+     * @var int
+     */
+    private $count;
 
 
     /**
@@ -31,28 +35,73 @@ class LruCache {
     public function __construct($capacity)
     {
         $this->capacity = $capacity;
+        $this->count = 0;
         $this->items = [];
-        $this->list = new LinkedList();
+        $this->linkedList = new LruLinkedList();
     }
 
 
+    /**
+     * @param $key
+     * @param $value
+     * @return bool
+     */
     public function set($key, $value)
     {
-        $newNode = new LinkedNode($key, $value);
+        if (!$key && !is_string($key) && !is_int($key))  return false;
 
-        if ($this->list->getSize() > $this->getCapacity()) {
-            $this->list->remove($this->list->getHead());
+        //计算hash
+        $hashIndex = $this->makeHash($key);
+
+        //判断hashKey是否存在
+        $newNode = new LruLinkedNode($key, $value);
+        $singleList = new LruSingleList();
+
+        //若存在，则将其置为尾节点
+        if (isset($this->items[$hashIndex]) ) {
+
+            /** @var LruSingleList $singleList */
+            $singleList = $this->items[$hashIndex];
+           list($curNode, $isExists) = $singleList->find($key);
+            if ($isExists) {
+               return  $this->linkedList->moveToTail($curNode);
+            }
+
         }
+
+        while ($this->linkedList->getSize() >= $this->getCapacity()) {
+            $this->count--;
+            $this->linkedList->removeOldest();
+        }
+
+        $this->linkedList->add($newNode);
+        $singleList->add($newNode);
+        $this->items[$hashIndex] = $singleList;
+        $this->count++;
+
+        return true;
+    }
+
+    public function del($key)
+    {
+        if ($this->count <= 0) return false;
+
+        if (!$key && !is_string($key) && !is_int($key))  return false;
+
+        //计算hash
+        $hashIndex = $this->makeHash($key);
 
         if (isset($this->items[$key])) {
-            $cur = $this->items[$key];
-            while ($cur->getHnext()) {
-                $cur = $cur->getHnext();
+            /** @var LruSingleList $singleList */
+            $singleList = $this->items[$hashIndex];
+            list($curNode, $prevNode, $isExists) = $singleList->find($key);
+            if ($isExists) {
+                         $singleList->removeAfter($prevNode);
+                return  $this->linkedList->remove($curNode);
             }
-            $cur->setHnext($newNode);
-        }else {
-            $this->items[$key] = $newNode;
         }
+
+        return false;
     }
 
 
@@ -64,9 +113,30 @@ class LruCache {
         return $this->capacity;
     }
 
-
-    public function incrCapacity()
+    public function getCount()
     {
-        $this->capacity++;
+        return $this->count;
+    }
+
+    /**
+     * @param $key
+     * @return int
+     */
+    private function makeHash($key)
+    {
+        return crc32($key) % ($this->getCapacity() - 1);
+    }
+
+    public function printItems()
+    {
+        //var_dump($this->items);
+        for ($i = 0; $i < 4; $i++) {
+            if (isset($this->items[$i])) {
+                /** @var LruSingleList $list */
+                $list = $this->items[$i];
+                /** @var LruLinkedNode $cur */
+                $list->printHnext();
+            }
+        }
     }
 }

@@ -1,7 +1,9 @@
 <?php
 namespace hashTable;
 
-class LinkedNode {
+
+class LruLinkedNode {
+
     private $prev;
     private $next;
     private $key;
@@ -10,8 +12,8 @@ class LinkedNode {
 
     public function __construct($key, $value)
     {
-        $this->value = $value;
         $this->key = $key;
+        $this->value = $value;
     }
 
     /**
@@ -49,22 +51,6 @@ class LinkedNode {
     /**
      * @return mixed
      */
-    public function getHnext()
-    {
-        return $this->hnext;
-    }
-
-    /**
-     * @param mixed $hnext
-     */
-    public function setHnext($hnext)
-    {
-        $this->hnext = $hnext;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getKey()
     {
         return $this->key;
@@ -77,5 +63,36 @@ class LinkedNode {
     {
         $this->key = $key;
     }
-}
 
+    /**
+     * @return mixed
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * @param mixed $value
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHnext()
+    {
+        return $this->hnext;
+    }
+
+    /**
+     * @param mixed $hnext
+     */
+    public function setHnext($hnext)
+    {
+        $this->hnext = $hnext;
+    }
+}

@@ -1,4 +1,5 @@
 <?php
+namespace listx;
 
 class SingleListNode {
     public $value;
