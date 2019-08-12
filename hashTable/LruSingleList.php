@@ -2,6 +2,7 @@
 namespace hashTable;
 
 
+
 class LruSingleList {
 
     /** @var LruLinkedNode  */
@@ -46,7 +47,7 @@ class LruSingleList {
         $isExists = false;
         /** @var LruLinkedNode $cur */
         $cur = $this->head->getHnext();
-        $prev = $cur;
+        $prev = $this->head;
 
         while ($cur) {
 
@@ -58,13 +59,26 @@ class LruSingleList {
             $cur = $cur->getHnext();
         }
 
-        return [$cur, $isExists];
+        return [$cur, $prev, $isExists];
     }
 
-    public function removeAfter(LruLinkedNode $node)
+
+    /**
+     * @param LruLinkedNode $prev
+     * @param LruLinkedNode $cur
+     * @return bool
+     */
+    public function remove(LruLinkedNode $prev, LruLinkedNode $cur)
     {
-        $node->setHnext($node->getHnext()->getHnext());
-        $node->getHnext()->getHnext()->setHnext($node);
+
+        if ($this->head->getHnext() === $cur && $this->tail->getHnext() === $cur) {
+            $this->tail->setHnext(null);
+        }
+
+         $prev->setHnext($cur->getHnext());
+
+        $this->size--;
+        return true;
     }
 
     /**
@@ -82,7 +96,7 @@ class LruSingleList {
 
         $i = 0;
         while ($cur) {
-            echo str_repeat("-", $i) . $cur->getKey().PHP_EOL;
+            echo str_repeat("-", $i) . $cur->getKey(). ", value: {$cur->getValue()}".PHP_EOL;
 
             $cur = $cur->getHnext();
             $i++;

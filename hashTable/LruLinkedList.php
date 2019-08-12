@@ -1,6 +1,8 @@
 <?php
 namespace hashTable;
 
+use listx\LinkedNode;
+
 class LruLinkedList {
 
 
@@ -40,22 +42,25 @@ class LruLinkedList {
         return true;
     }
 
+
     public function remove(LruLinkedNode $node)
     {
         $node->getPrev()->setNext($node->getNext());
-        $node->setPrev($this->tail->getPrev());
-
+        $node->getNext()->setPrev($node->getPrev());
+        $node->setNext(null);
+        $node->setPrev(null);
         return true;
     }
 
-    public function moveToTail(LruLinkedNode $node)
+    public function moveToTail(LruLinkedNode $node, $value)
     {
-
         $this->remove($node);
 
         $this->tail->getPrev()->setNext($node);
+        $node->setNext($this->tail);
         $node->setPrev($this->tail->getPrev());
-        $this->tail->setNext($node);
+        $node->setValue($value);
+        $this->tail->setPrev($node);
 
         return true;
     }
@@ -76,16 +81,6 @@ class LruLinkedList {
         $this->size = $size;
     }
 
-    public function removeOldest()
-    {
-        if (is_null($this->head->getNext()) || is_null($this->head->getNext()->getNext())) return false;
-
-        $this->head->getNext()->getNext()->setPrev($this->head);
-        $this->head->setNext($this->head->getNext()->getNext());
-
-        $this->size--;
-        return true;
-    }
 
     /**
      * @return LruLinkedNode
@@ -102,6 +97,5 @@ class LruLinkedList {
     {
         return $this->tail;
     }
-
 
 }

@@ -62,28 +62,23 @@ class LruCache {
 
             /** @var LruSingleList $singleList */
             $singleList = $this->items[$hashIndex];
-            list($curNode, $prev,  $isExists) = $singleList->find($key);
+            /** @var LruLinkedNode $curNode */
+            list($curNode, $prevNode,  $isExists) = $singleList->find($key);
             if ($isExists) {
-                return  $this->linkedList->moveToTail($curNode);
+                return  $this->linkedList->moveToTail($curNode, $value);
             }
-
         }
 
-        while ($this->linkedList->getSize() >= $this->getCapacity()) {
-            $this->count--;
+        while ($this->count >= $this->getCapacity()) {
             $lastNode = $this->linkedList->getHead()->getNext();
-
-            $singleList = $this->items[$this->makeHash($lastNode->getKey())];
-            $singleList->remove($lastNode);
-            echo "size:" . $this->linkedList->getSize() . PHP_EOL;
-            //  exit;
+            $this->del($lastNode->getKey());
         }
+
 
         $this->linkedList->add($newNode);
         $singleList->add($newNode);
         $this->items[$hashIndex] = $singleList;
         $this->count++;
-
         return true;
     }
 
@@ -95,14 +90,16 @@ class LruCache {
 
         //计算hash
         $hashIndex = $this->makeHash($key);
-
-        if (isset($this->items[$key])) {
+        if (isset($this->items[$hashIndex])) {
             /** @var LruSingleList $singleList */
             $singleList = $this->items[$hashIndex];
             list($curNode, $prevNode, $isExists) = $singleList->find($key);
+            echo "key:" . $key . ", isExist: {$isExists}" . PHP_EOL;
             if ($isExists) {
-                $singleList->removeAfter($prevNode);
-                return  $this->linkedList->remove($curNode);
+                $this->count--;
+                $singleList->remove($prevNode, $curNode);
+                return $this->linkedList->remove($curNode);
+
             }
         }
 
@@ -134,7 +131,7 @@ class LruCache {
 
     public function printItems()
     {
-        for ($i = 0; $i < 4; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             if (isset($this->items[$i])) {
                 /** @var LruSingleList $list */
                 $list = $this->items[$i];
@@ -142,7 +139,5 @@ class LruCache {
                 $list->printHnext();
             }
         }
-
-
     }
 }
