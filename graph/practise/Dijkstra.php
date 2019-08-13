@@ -4,7 +4,7 @@ namespace graph\practise;
 
 
 //Dijkstra 算法上获取地图上两点之间的最短路径
-use PriorityQueue;
+use queue\PriorityQueue;
 
 class Dijkstra {
 

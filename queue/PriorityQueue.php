@@ -5,8 +5,6 @@ namespace queue;
 use Heap\Heap;
 use Heap\HeapFactory;
 
-require __DIR__ . '/../heap/Heap.php';
-
 
 class PriorityQueue {
 
