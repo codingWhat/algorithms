@@ -50,7 +50,7 @@ class BreadthFirstSearch {
             $fItem = $this->queue->dequeue();
 
             for ($i = 0; $this->graph[$fItem]->size(); $i++) {
-                    $sItem = $this->queue[$fItem]->get($i);
+                    $sItem = $this->graph[$fItem]->get($i);
 
                 if (!isset($visted[$sItem])) {
                     $prev[$sItem] = $fItem;

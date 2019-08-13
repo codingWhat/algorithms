@@ -2,6 +2,8 @@
 
 namespace graph\practise;
 //深度优先搜索-BFS
+use graph\Graph;
+use listx\Queue;
 
 /**
  * [
@@ -57,7 +59,7 @@ class DeepFirstSearch {
 
     public function do(int $start, int $terminal)
     {
-        if ($start == $terminal)  return ;
+        if ($start == $terminal)  return;
 
         $this->visited[$start] = true;
         $prev = [];

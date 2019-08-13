@@ -4,7 +4,7 @@ namespace listx;
 
 class Queue {
 
-    private  $items = [];
+    private  $items;
 
     private $size = 0;
 
@@ -17,28 +17,33 @@ class Queue {
     public function __construct($size)
     {
         $this->size = $size;
+        $this->items = [];
+
     }
 
     public function enqueue($item)
     {
-        if ($this->tail == $this->size) {return false;}
+        // return array_push($item);
+        if ($this->tail < $this->head && (($this->head + 1)  % $this->size)=== $this->tail)  return false;
 
         $this->items[$this->tail] = $item;
-        $this->tail++;
+        $this->tail = ($this->tail + 1) % $this->size;
         $this->count++;
-        return $this->tail - 1;
+        return true;
     }
 
     public function dequeue()
     {
-        if ($this->head >= $this->size)  {
+        // return array_shift($this->items);
+        if ((($this->head + 1)  % $this->size) === $this->tail)  {
+            var_dump($this->head);
             return false;
         }
 
         $item = $this->items[$this->head];
-
-        $this->head++;
+        $this->head = ($this->head + 1) % $this->size;
         $this->count--;
+
         return $item;
     }
 
@@ -49,9 +54,6 @@ class Queue {
 
     public function getItems()
     {
-        var_dump($this->head);
-        var_dump($this->tail);
-        var_dump($this->count);
         return $this->items;
     }
 }
