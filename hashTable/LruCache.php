@@ -2,7 +2,7 @@
 namespace hashTable;
 //实现一个LRU缓存淘汰算法
 
-//可以基于hashMap + 双向链表
+//可以基于hashtable + 双向链表
 //$res['key'] = 节点对象
 //1. 查找/添加时 将操作节点置为head节点
 //2. 添加满时, 去除最后一个节点
@@ -63,18 +63,19 @@ class LruCache {
             /** @var LruSingleList $singleList */
             $singleList = $this->items[$hashIndex];
             /** @var LruLinkedNode $curNode */
-            list($curNode, $prevNode,  $isExists) = $singleList->find($key);
-            if ($isExists) {
+            $curNode = $singleList->find($key);
+            if ($curNode) {
                 return  $this->linkedList->moveToTail($curNode, $value);
             }
         }
 
+        //淘汰逻辑-LRU
         while ($this->count >= $this->getCapacity()) {
             $lastNode = $this->linkedList->getHead()->getNext();
             $this->del($lastNode->getKey());
         }
 
-
+        //若有空闲空间时，添加元素
         $this->linkedList->add($newNode);
         $singleList->add($newNode);
         $this->items[$hashIndex] = $singleList;
@@ -93,13 +94,11 @@ class LruCache {
         if (isset($this->items[$hashIndex])) {
             /** @var LruSingleList $singleList */
             $singleList = $this->items[$hashIndex];
-            list($curNode, $prevNode, $isExists) = $singleList->find($key);
-            echo "key:" . $key . ", isExist: {$isExists}" . PHP_EOL;
-            if ($isExists) {
+            $curNode = $singleList->find($key);
+            if ($curNode) {
                 $this->count--;
-                $singleList->remove($prevNode, $curNode);
+                $singleList->remove($key);
                 return $this->linkedList->remove($curNode);
-
             }
         }
 
@@ -131,7 +130,7 @@ class LruCache {
 
     public function printItems()
     {
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < $this->capacity; $i++) {
             if (isset($this->items[$i])) {
                 /** @var LruSingleList $list */
                 $list = $this->items[$i];

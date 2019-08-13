@@ -16,6 +16,8 @@ $cache->set('f', 3);
 $cache->set('e', 2);
 $cache->set('h', 6);
 $cache->set('n', 6);
-
+$cache->del('e');
+//$cache->del('n');
+$cache->del('h');
 $cache->printItems();
 //echo  $cache->getCount();

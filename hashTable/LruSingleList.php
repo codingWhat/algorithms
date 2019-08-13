@@ -16,11 +16,13 @@ class LruSingleList {
      */
     private $tail;
 
+    static private $cache = [];
+
     public function __construct($size = 0)
     {
         $this->size = $size;
-        $this->head = new LruLinkedNode(null, null);
-        $this->tail = new LruLinkedNode(null, null);
+        $this->head = new LruLinkedNode('head', null);
+        $this->tail = new LruLinkedNode('tail', null);
     }
 
     public function add(LruLinkedNode $node)
@@ -37,14 +39,49 @@ class LruSingleList {
         return true;
     }
 
+    private function isExists($key)
+    {
+        return (bool) isset(static::$cache[$key]);
+    }
+
+    private function getNodePtrByKey($key)
+    {
+        if ($this->isExists($key)) {
+            return $this->getItem($key)['cur'];
+        }
+
+        return null;
+    }
+
+    private function getPrevPtrByKey($key)
+    {
+        if ($this->isExists($key)) {
+            return $this->getItem($key)['prev'];
+        }
+
+        return null;
+    }
+
+    private function getItem($key)
+    {
+        return static::$cache[$key];
+    }
+
+    private function clearItem($key)
+    {
+        unset(static::$cache[$key]);
+    }
+
     /**
      * @param $key
-     * @return array
+     * @return LruLinkedNode
      */
     public function find($key)
     {
+        if ($this->isExists($key)) {
+            return $this->getNodePtrByKey($key);
+        }
 
-        $isExists = false;
         /** @var LruLinkedNode $cur */
         $cur = $this->head->getHnext();
         $prev = $this->head;
@@ -52,33 +89,46 @@ class LruSingleList {
         while ($cur) {
 
             if ($cur->getKey() == $key) {
-                $isExists = true;
+                static::$cache[$cur->getKey()]['prev'] = $prev;
+                static::$cache[$cur->getKey()]['cur'] = $cur;
                 break;
             }
             $prev = $cur;
             $cur = $cur->getHnext();
         }
 
-        return [$cur, $prev, $isExists];
+
+        return $cur;
     }
 
 
-    /**
-     * @param LruLinkedNode $prev
-     * @param LruLinkedNode $cur
-     * @return bool
-     */
-    public function remove(LruLinkedNode $prev, LruLinkedNode $cur)
+    public function remove($key)
     {
+        if ($this->isExists($key)) {
+           return  $this->removeFully($key);
+        }
+
+        $resNode = $this->find($key);
+        if (is_null($resNode))  return false;
+
+         return  $this->removeFully($key);
+    }
+
+    private function removeFully($key)
+    {
+        $curNodeInfo = $this->getItem($key);
+        $cur = $curNodeInfo['cur'];
+        $prev = $curNodeInfo['prev'];
 
         if ($this->head->getHnext() === $cur && $this->tail->getHnext() === $cur) {
             $this->tail->setHnext(null);
         }
+        $prev->setHnext($cur->getHnext());
 
-         $prev->setHnext($cur->getHnext());
 
-        $this->size--;
+        $this->clearItem($key);
         return true;
+
     }
 
     /**
