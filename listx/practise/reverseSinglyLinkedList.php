@@ -4,7 +4,7 @@ namespace listx\practise;
 
 use listx\SingleList;
 
-
+require dirname(__DIR__) . '/../autoload.php';
 //准备测试数据
 $singleList = prepareTestData();
 $tmpList = $singleList;
@@ -12,18 +12,18 @@ $tmpList = $singleList;
 //反转单链表
 reverseSingleList($tmpList);
 
-function reverseSingleList($tmpList) {
+function reverseSingleList(SingleList $tmpList) {
 
-    $cur = $tmpList->head;
+    $cur = $tmpList->getHead();
     $prev = null;
 
     while ($cur) {
         $next = $cur->next;
-        $cur->next = $prev;
+        $cur->setNext($prev);
         $prev = $cur;
         $cur = $next;
     }
-    $tmpList->head = $prev;
+    $tmpList->setHead($prev);
 }
 
 

@@ -1,8 +1,6 @@
 <?php
 namespace listx;
 
-require __DIR__ . '/linkedList.php';
-
 
 $linkedList = new LinkedList();
 

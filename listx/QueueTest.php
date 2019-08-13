@@ -1,9 +1,6 @@
 <?php
 namespace listx;
 
-require __DIR__ . '/queue.php';
-
-
 $list = new Queue(3);
 
 $list->enqueue(1);

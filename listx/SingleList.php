@@ -71,4 +71,20 @@ class SingleList {
             $cur = $cur->next;
         }
     }
+
+    /**
+     * @return SingleListNode
+     */
+    public function getHead(): SingleListNode
+    {
+        return $this->head;
+    }
+
+    /**
+     * @param SingleListNode $head
+     */
+    public function setHead(SingleListNode $head): void
+    {
+        $this->head = $head;
+    }
 }
