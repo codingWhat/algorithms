@@ -1,4 +1,5 @@
 <?php
+namespace queue;
 
 class Node {
 

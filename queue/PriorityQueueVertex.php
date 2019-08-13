@@ -1,5 +1,8 @@
 <?php
+namespace queue;
 
+use Heap\HeapFactory;
+use heap\HeapVertex;
 
 class PriorityQueueVertex {
 
@@ -10,9 +13,12 @@ class PriorityQueueVertex {
      */
     private $items;
     /**
-     * @var HeapFactory
+     * @var HeapVertex
      */
     private $heapFactory;
+
+    /** @var int */
+    private $count;
 
     /**
      * PriorityQueue constructor.
@@ -22,13 +28,13 @@ class PriorityQueueVertex {
     {
         $this->size = $size;
         $this->items = [];
-        $this->heapFactory = new HeapFactory();
+        $this->heapFactory = HeapFactory::make("vertex");
     }
 
     //默认获取小顶堆中的最小元素，重新构建小顶堆
     public function poll()
     {
-        if (empty($this->items))  return false;
+        if ($this->count <= 0)  return false;
 
         $popItem = array_shift($this->items);
 
@@ -42,8 +48,12 @@ class PriorityQueueVertex {
 
     public function add($item)
     {
-        if (count($this->items) > $this->size) return false;
+        if ($this->count > $this->size) return false;
 
-        return $this->heapFactory->dynamicBuildSmallHeapWithVertex($this->items, $item);
+         $this->heapFactory->dynamicBuildSmallHeap($this->items, $item);
+
+         $this->count++;
+
+         return true;
     }
 }

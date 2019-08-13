@@ -1,6 +1,5 @@
 <?php
-
-require  __DIR__ . 'PriorityQueue.php';
+namespace queue;
 
 $queue = new PriorityQueue(4);
 

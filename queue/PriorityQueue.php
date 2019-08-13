@@ -1,5 +1,9 @@
 <?php
 
+namespace queue;
+
+use Heap\Heap;
+use Heap\HeapFactory;
 
 require __DIR__ . '/../heap/Heap.php';
 
@@ -12,8 +16,9 @@ class PriorityQueue {
      * @var array
      */
     private $items;
+
     /**
-     * @var HeapFactory
+     * @var Heap
      */
     private $heapFactory;
 
@@ -25,7 +30,8 @@ class PriorityQueue {
     {
         $this->size = $size;
         $this->items = [];
-        $this->heapFactory = new HeapFactory();
+
+        $this->heapFactory = HeapFactory::make();
     }
 
     //默认获取小顶堆中的最小元素，重新构建小顶堆

@@ -1,8 +1,11 @@
 <?php
 
-require __DIR__ . '/../listx/queue.php';
-//广度优先搜索-BFS
+namespace graph\practise;
 
+use graph\Graph;
+use listx\Queue;
+
+//广度优先搜索-BFS
 /**
  * [
  *  [1, 2, 3, 4]

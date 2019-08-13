@@ -1,7 +1,6 @@
 <?php
 
-
-require __DIR__ . '/../listx/queue.php';
+namespace graph\practise;
 //深度优先搜索-BFS
 
 /**

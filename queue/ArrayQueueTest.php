@@ -1,6 +1,5 @@
 <?php
-
-require  __DIR__ . '/arrayQueue.php';
+namespace queue;
 
 // 基础版本测试
 $queue = new ArrayQueue(4);

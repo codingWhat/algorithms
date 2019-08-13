@@ -1,5 +1,5 @@
 <?php
-
+namespace queue;
 //本脚本实现方案未考虑线程安全问题
 //总结: 该方案缺点就是每次出队，都需要进行一次数据搬移，影响性能.
 class ArrayQueue {

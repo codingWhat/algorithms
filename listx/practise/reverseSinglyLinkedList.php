@@ -1,21 +1,17 @@
 <?php
 namespace listx\practise;
-//反转单链表
+
 
 use listx\SingleList;
 
 
-$singleList = new SingleList();
-$singleList->add(1);
-$singleList->add(2);
-$singleList->add(3);
-$singleList->add(4);
-
-
+//准备测试数据
+$singleList = prepareTestData();
 $tmpList = $singleList;
- var_dump($tmpList);
+
+//反转单链表
 reverseSingleList($tmpList);
-var_dump($tmpList->head);
+
 function reverseSingleList($tmpList) {
 
     $cur = $tmpList->head;
@@ -28,4 +24,15 @@ function reverseSingleList($tmpList) {
         $cur = $next;
     }
     $tmpList->head = $prev;
+}
+
+
+function prepareTestData() {
+    $singleList = new SingleList();
+    $singleList->add(1);
+    $singleList->add(2);
+    $singleList->add(3);
+    $singleList->add(4);
+
+    return $singleList;
 }

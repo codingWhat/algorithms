@@ -1,10 +1,10 @@
 <?php
 namespace listx\practise;
-//删除倒数第k个节点
-
 
 use listx\SingleListNode;
 
+
+//删除倒数第k个节点
 function delKNode(SingleListNode $head, $k) {
 
     if (is_null($head) || is_null($head->next)) return false;

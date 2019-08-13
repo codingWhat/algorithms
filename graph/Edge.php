@@ -21,4 +21,28 @@ class Edge
         $this->weight = $weight;  //权重，默认1：即无权重，
     }
 
+    /**
+     * @return Vertex
+     */
+    public function getStart(): Vertex
+    {
+        return $this->start;
+    }
+
+    /**
+     * @return Vertex
+     */
+    public function getTerminal(): Vertex
+    {
+        return $this->terminal;
+    }
+
+    /**
+     * @return int
+     */
+    public function getWeight(): int
+    {
+        return $this->weight;
+    }
+
 }

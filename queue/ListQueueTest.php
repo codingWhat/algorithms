@@ -1,6 +1,5 @@
 <?php
-
-require  __DIR__ . '/listQueue.php';
+namespace queue;
 
 
 $listQueue = new ListQueue(3);

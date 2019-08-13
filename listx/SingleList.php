@@ -13,6 +13,22 @@ class SingleListNode {
     {
         $this->value = $value;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getNext()
+    {
+        return $this->next;
+    }
+
+    /**
+     * @param mixed $next
+     */
+    public function setNext($next): void
+    {
+        $this->next = $next;
+    }
 }
 
 class SingleList {
