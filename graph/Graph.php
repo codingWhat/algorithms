@@ -1,43 +1,5 @@
 <?php
-require __DIR__ . '/Base.php';
-require __DIR__ . '/SingleList.php';
-
-
-//边
-class Edge
-{
-    /** @var Vertex $start */
-    private $start;
-
-    /** @var Vertex $terminal */
-    private $terminal;
-
-    /** @var int $weight */
-    private $weight;
-
-    public function __construct(Vertex $start, Vertex $terminal, int $weight = 1)
-    {
-        $this->start = $start; //边的起始顶点
-        $this->terminal = $terminal;  //边的尾顶点
-        $this->weight = $weight;  //权重，默认1：即无权重，
-    }
-
-}
-
-//顶点
-class Vertex
-{
-    //顶点编号
-    private $id;
-    //距离起始点之间的距离
-    private $dist;
-
-    public function __construct($id, $dist)
-    {
-        $this->id = $id;
-        $this->dist = $dist;
-    }
-}
+namespace graph;
 
 
 //实现有向图、无向图、有权图、无权图的邻接矩阵和邻接表表示方法
@@ -78,8 +40,7 @@ class Graph extends Base
         }
     }
 
-
-    public function addEdge1($start, $terminal, $weight)
+    public function addEdgeWeight($start, $terminal, $weight)
     {
         $edge = new Edge($start, $terminal, $weight);
 

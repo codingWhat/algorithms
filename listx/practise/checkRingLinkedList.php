@@ -1,7 +1,9 @@
 <?php
+namespace listx\practise;
 //链表中环的检测
-require __DIR__ . '/singleList.php';
 
+
+use listx\SingleListNode;
 
 function checkWhetherRingList(SingleListNode $head) {
 

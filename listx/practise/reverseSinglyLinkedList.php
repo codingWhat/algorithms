@@ -1,7 +1,9 @@
 <?php
+namespace listx\practise;
 //反转单链表
 
-require  __DIR__ . '/singleList.php';
+use listx\SingleList;
+
 
 $singleList = new SingleList();
 $singleList->add(1);

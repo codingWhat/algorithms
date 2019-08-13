@@ -1,4 +1,7 @@
 <?php
+namespace graph;
+
+use ArrayAccess;
 
 class Base  implements ArrayAccess {
 

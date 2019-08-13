@@ -1,4 +1,5 @@
 <?php
+namespace listx;
 //实现单链表，循环链表，双向链表，支持增删操作
 
 class Queue {

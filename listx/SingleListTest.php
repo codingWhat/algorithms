@@ -1,5 +1,7 @@
 <?php
 
+namespace listx;
+
 require __DIR__ . '/singleList.php';
 
 $list = new SingleList();

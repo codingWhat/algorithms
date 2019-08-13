@@ -1,7 +1,9 @@
 <?php
+namespace listx\practise;
 // 合并两个有序链表
 
-require __DIR__ . '/singleList.php';
+use listx\SingleList;
+use listx\SingleListNode;
 
 $list1 = new SingleList();
 $list1->add(4);

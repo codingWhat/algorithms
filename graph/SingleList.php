@@ -1,5 +1,7 @@
 <?php
 
+namespace graph;
+
 //简单单链表实现，没有大小限制，采用"哨兵"模式，提供快速获取链表size, head, tail
 class SingleListNode
 {
@@ -14,17 +16,38 @@ class SingleListNode
     {
         $this->value = $value;
     }
+
+    /**
+     * @param mixed $next
+     */
+    public function setNext($next): void
+    {
+        $this->next = $next;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNext()
+    {
+        return $this->next;
+    }
 }
 
-class SingleList {
+class SingleList
+{
 
+    /** @var SingleListNode $head */
     public $head;
+
+    /** @var SingleListNode $tail */
     private $tail;
+
     private $size;
 
     public function __construct()
     {
-        $this->tail =  new SingleListNode(null);
+        $this->tail = new SingleListNode(null);
         $this->head = new SingleListNode(null);
         $this->size = 0;
     }
@@ -33,14 +56,14 @@ class SingleList {
     {
         $newNode = new SingleListNode($item);
 
-        if ($this->head->next === null && $this->tail->next === null) {
-            $this->head->next =  $newNode;
-            $this->tail->next = $newNode;
-        }else {
-            $this->tail->next->next = $newNode;
-
-            $this->tail->next = $newNode;
+        if ($this->head->getNext() === null && $this->tail->getNext() === null) {
+            $this->head->setNext($newNode);
+        } else {
+            $this->tail->getNext()->setNext($newNode);
         }
+
+        $this->tail->setNext($newNode);
+
         $this->size++;
     }
 
@@ -63,5 +86,37 @@ class SingleList {
     public function size()
     {
         return $this->size;
+    }
+
+    /**
+     * @return SingleListNode
+     */
+    public function getHead(): SingleListNode
+    {
+        return $this->head;
+    }
+
+    /**
+     * @param SingleListNode $head
+     */
+    public function setHead(SingleListNode $head): void
+    {
+        $this->head = $head;
+    }
+
+    /**
+     * @return SingleListNode
+     */
+    public function getTail(): SingleListNode
+    {
+        return $this->tail;
+    }
+
+    /**
+     * @param SingleListNode $tail
+     */
+    public function setTail(SingleListNode $tail): void
+    {
+        $this->tail = $tail;
     }
 }

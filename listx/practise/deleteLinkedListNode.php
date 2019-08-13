@@ -1,8 +1,9 @@
 <?php
-
+namespace listx\practise;
 //删除倒数第k个节点
 
-require __DIR__ . '/singleList.php';
+
+use listx\SingleListNode;
 
 function delKNode(SingleListNode $head, $k) {
 

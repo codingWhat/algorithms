@@ -1,7 +1,5 @@
 <?php
-
-require __DIR__ . '/SingleList.php';
-
+namespace graph;
 
 
 $list = new SingleList();

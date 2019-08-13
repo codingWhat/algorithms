@@ -1,4 +1,5 @@
 <?php
+namespace listx;
 
 require __DIR__ . '/queue.php';
 
