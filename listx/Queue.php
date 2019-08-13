@@ -16,15 +16,17 @@ class Queue {
 
     public function __construct($size)
     {
-        $this->size = $size;
+        $this->size = $size + 1;
         $this->items = [];
 
     }
 
     public function enqueue($item)
     {
-        // return array_push($item);
-        if ($this->tail < $this->head && (($this->head + 1)  % $this->size)=== $this->tail)  return false;
+
+        if ((($this->tail + 1) % $this->size) === $this->head) {
+            return false;
+        }
 
         $this->items[$this->tail] = $item;
         $this->tail = ($this->tail + 1) % $this->size;
@@ -35,8 +37,8 @@ class Queue {
     public function dequeue()
     {
         // return array_shift($this->items);
-        if ((($this->head + 1)  % $this->size) === $this->tail)  {
-            var_dump($this->head);
+        if ((($this->head + 1)  % $this->size) > $this->tail)  {
+          //  var_dump($this->head);
             return false;
         }
 
