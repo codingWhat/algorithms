@@ -16,7 +16,7 @@ class Queue {
 
     public function __construct($size)
     {
-        $this->size = $size + 1;
+        $this->size = $size;
         $this->items = [];
 
     }
@@ -37,7 +37,7 @@ class Queue {
     public function dequeue()
     {
         // return array_shift($this->items);
-        if ((($this->head + 1)  % $this->size) > $this->tail)  {
+        if ((($this->head + 1)  % $this->size) === $this->tail)  {
           //  var_dump($this->head);
             return false;
         }
