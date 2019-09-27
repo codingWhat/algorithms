@@ -9,10 +9,20 @@
 
 // AB  ADF
 
-//echo editDistance("ADB", "ACF", 3, 3, 0);
-echo editDistance("kitten", "sitting", 6, 7, 0);
+echo editDistance("ADB", "ACF", 3, 3, 0);
+echo editDistance("", "ACF", 1, 3, 0);
+//echo editDistance("kitten", "sitting", 6, 7, 0);
+echo editDistance("siting", "citing", 6, 6, 0);
 
 function editDistance($obj, $target, $objLen, $targetLen, $cost) {
+
+    if (strlen($obj) == 0) {
+        return $targetLen;
+    }
+
+    if (strlen($targetLen) == 0) {
+        return $objLen;
+    }
    // var_dump(func_get_args());
     if ($objLen <= 0 || $targetLen <= 0) {
 
