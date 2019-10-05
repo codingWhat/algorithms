@@ -9,10 +9,10 @@
 
 // AB  ADF
 
-echo editDistance("ADB", "ACF", 3, 3, 0);
-echo editDistance("", "ACF", 1, 3, 0);
+//echo editDistance("ADB", "ACF", 3, 3, 0);
+//echo editDistance("", "ACF", 1, 3, 0);
 //echo editDistance("kitten", "sitting", 6, 7, 0);
-echo editDistance("siting", "citing", 6, 6, 0);
+//echo editDistance("siting", "citing", 6, 6, 0);
 
 function editDistance($obj, $target, $objLen, $targetLen, $cost) {
 
@@ -44,5 +44,47 @@ function editDistance($obj, $target, $objLen, $targetLen, $cost) {
         );
 
     }
+
+}
+
+echo  editDistance1("ABAC", "ABCD");
+echo  editDistance1("", "ABCD");
+
+function editDistance1($objStr, $targetStr){
+    $len1 = strlen($objStr);
+    $len2 = strlen($targetStr);
+    $lookup = [[0]];
+
+
+    for ($i = 1; $i <= $len1; $i ++) {
+       $lookup[0][$i] = $i;
+    }
+
+    for ($j = 1; $j <= $len2; $j++) {
+        $lookup[$j][0] = $j;
+    }
+
+    $cost = 0;
+    for ($i = 1; $i <= $len1; $i++) {
+        for ($j = 1; $j <= $len2; $j++) {
+            if ($objStr[$i - 1] == $targetStr[$j - 1]) {
+                $cost = 0;
+            } else {
+                $cost = 1;
+            }
+
+            $lookup[$i][$j] = min(
+                //top
+                $lookup[$i-1][$j] + $cost,
+                //left
+                $lookup[$i][$j-1] + $cost,
+                //左上角
+            $lookup[$i-1][$j-1] + $cost
+            );
+        }
+    }
+
+    $last = array_pop($lookup);
+    return end($last);
 
 }
