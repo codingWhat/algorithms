@@ -28,7 +28,7 @@ class LCS {
             for ($j = 1; $j <= $len2; $j++ ) {
 
                 if ($str1[$i-1] == $str2[$j-1]) {
-                    $this->lookup[$i][$j] = $this->lookup[$i-1][$j] + 1;
+                    $this->lookup[$i][$j] = $this->lookup[$i-1][$j-1] + 1;
                 } else{
                     $this->lookup[$i][$j] = max($this->lookup[$i-1][$j], $this->lookup[$i][$j-1]);
                 }

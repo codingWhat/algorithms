@@ -11,7 +11,6 @@ class Lcs {
         $len2 = strlen($str2);
 
         $this->makeDistanceMap($str1, $str2, $len1, $len2);
-
         $rs = $this->findAllLcs($str1, $str2, $len1, $len2);
 
         var_dump($rs);
@@ -19,21 +18,28 @@ class Lcs {
 
     public function findAllLcs($str1, $str2, $len1, $len2)
     {
-        if ($len2 == 0 || $len1 == 0) return [];
+        if ($len2 == 0 || $len1 == 0) return [""];
 
         if ($str1[$len1-1] == $str2[$len2-1]) {
 
             $rs = $this->findAllLcs($str1, $str2, $len1-1, $len2-1);
-            $len = count($rs);
-            for ($i = 0; $i < $len; $i++) {
-                $rs[$i] .= $str1[$len1-1];
+            foreach ($rs as $k => &$v) {
+                $rs[$k] .= $str1[$len1-1];
             }
-
             return $rs;
+        }
+
+        if ($this->lookup[$len1 - 1][$len2] > $this->lookup[$len1][$len2-1]) {
+           return  $this->findAllLcs($str1, $str2, $len1-1, $len2);
+        }
+
+        if ($this->lookup[$len1 - 1][$len2] < $this->lookup[$len1][$len2-1]) {
+            return  $this->findAllLcs($str1, $str2, $len1, $len2-1);
         }
 
         $top = $this->findAllLcs($str1, $str2, $len1-1, $len2);
         $left = $this->findAllLcs($str1, $str2, $len1, $len2-1);
+
 
         return array_merge($top, $left);
     }
@@ -53,7 +59,7 @@ class Lcs {
             for ($j = 1; $j <= $len2; $j++) {
 
                 if ($str1[$i-1] == $str2[$j-1]) {
-                    $this->lookup[$i][$j] = $this->lookup[$i-1][$j];
+                    $this->lookup[$i][$j] = $this->lookup[$i-1][$j-1] + 1;
                 }else {
                     $this->lookup[$i][$j] = max($this->lookup[$i-1][$j], $this->lookup[$i][$j-1]);
                 }
@@ -63,4 +69,5 @@ class Lcs {
 }
 
 $lcs = new LCS();
-$lcs->do("XMJYAUZ", "MZJAWXU");
+//$lcs->do("XMJYAUZ", "MZJAWXU");
+$lcs->do("ABCBDAB", "BDCABA");
