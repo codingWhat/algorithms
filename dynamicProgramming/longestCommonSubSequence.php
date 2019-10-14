@@ -43,7 +43,7 @@ function lcs($str1, $str2) {
             }
         }
     }
-    var_dump($arr);
+   // var_dump($arr);
     return $arr[$len1][$len2];
 }
 
